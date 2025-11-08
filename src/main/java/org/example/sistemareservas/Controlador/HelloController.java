@@ -34,6 +34,7 @@ public class HelloController {
     @FXML
     void IniciarSesionTest(MouseEvent event) throws IOException {
         userImage.setVisible(true);
+        String hello; 
         String  pass = txtPass.getText();
         String usuario = txtUsuario.getText();
         Usuario cliente1 = new Cliente("3123",usuario,usuario,"Playdota.az@gmail.com",pass);
