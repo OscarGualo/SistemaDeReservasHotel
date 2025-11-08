@@ -21,6 +21,7 @@ public class Cliente extends Usuario {
 
     @Override
     public void cerrarSesion() {
+
         System.out.println("Cerrando Sesion cliente-..... ");
     }
 
