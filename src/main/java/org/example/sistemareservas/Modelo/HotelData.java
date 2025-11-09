@@ -1,12 +1,10 @@
 package org.example.sistemareservas.Modelo;
 
 public class HotelData {
-    private static Hotel hotel;
+    private static final Hotel hotel = new Hotel();
 
-    // Inicializa los datos solo una vez
-    static {
-        hotel = new Hotel();
-        hotel.inicializarDatos();
+    private HotelData() {
+        // Evita instanciar esta clase
     }
 
     public static Hotel getHotel() {

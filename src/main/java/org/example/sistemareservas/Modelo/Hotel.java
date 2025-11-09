@@ -1,38 +1,45 @@
 package org.example.sistemareservas.Modelo;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Hotel {
-    private  List<Habitacion> habitaciones;
-    private  List<Servicio> servicios;
-
+    private static ObservableList<Habitacion> habitaciones = FXCollections.observableArrayList();
+    private static ObservableList<Servicio> servicios = FXCollections.observableArrayList();
     public Hotel() {
-        habitaciones = new ArrayList<>();
-        servicios = new ArrayList<>();
+        habitaciones = FXCollections.observableArrayList();
+        servicios = FXCollections.observableArrayList();
+        habitaciones.add(new Habitacion(101, 1,30,5,EstadoHabitacion.DISPONIBLE,TipoHabitacion.SUIT));
+        habitaciones.add(new Habitacion(102,  2,40,6,EstadoHabitacion.DISPONIBLE,TipoHabitacion.SIMPLE));
+        habitaciones.add(new Habitacion(103, 3,50,7,EstadoHabitacion.DISPONIBLE,TipoHabitacion.DOBLE));
 
+
+        // 🔹 Servicios predefinidos
+        servicios.add(new Servicio(1,"Piscina ","Piscina x", 10,true ));
+        servicios.add(new Servicio(2,"Spa", "SPA X",5,true));
+        servicios.add(new Servicio(3,"Transporte al aeropuerto", "DRIVER", 2.5,true));
     }
 
     public  void inicializarDatos() {
         // 🔹 Habitaciones predefinidas
-        habitaciones.add(new Habitacion(101, TipoHabitacion.SIMPLE,EstadoHabitacion.DISPONIBLE,10,5,3));
-        habitaciones.add(new Habitacion(102,  TipoHabitacion.DOBLE,EstadoHabitacion.DISPONIBLE,20,10,1));
-        habitaciones.add(new Habitacion(103, TipoHabitacion.SUIT,EstadoHabitacion.DISPONIBLE,30,4,2));
+        habitaciones.add(new Habitacion(101, 1,30.0,5,EstadoHabitacion.DISPONIBLE,TipoHabitacion.SUIT));
+        habitaciones.add(new Habitacion(102,  2,40,6,EstadoHabitacion.DISPONIBLE,TipoHabitacion.SIMPLE));
+        habitaciones.add(new Habitacion(103, 3,50,7,EstadoHabitacion.DISPONIBLE,TipoHabitacion.DOBLE));
 
 
         // 🔹 Servicios predefinidos
-        servicios.add(new Servicio("Piscina ","Piscina x", 10,"x"," Martes de 11 a 1" ));
-        servicios.add(new Servicio("Spa", "SPA X",5,"Y","LUENS 11"));
-        servicios.add(new Servicio("Transporte al aeropuerto", "DRIVER", 2.5,"DRive","SIEMPRE DISPONIBLE"));
+        servicios.add(new Servicio(1,"Piscina ","Piscina x", 10,true ));
+        servicios.add(new Servicio(2,"Spa", "SPA X",5,true));
+        servicios.add(new Servicio(3,"Transporte al aeropuerto", "DRIVER", 2.5,true));
     }
 
-    public  List<Habitacion> getHabitaciones() {
-        return habitaciones;
-    }
+    // --- Métodos de acceso ---
+    public ObservableList<Habitacion> getHabitaciones() { return habitaciones; }
+    public ObservableList<Servicio> getServicios() { return servicios; }
 
-    public  List<Servicio> getServicios() {
-        return servicios;
-    }
 
     @Override
     public String toString() {
