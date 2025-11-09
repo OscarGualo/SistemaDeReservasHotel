@@ -11,7 +11,7 @@ public class Reserva {
     private List<Habitacion> habitaciones; // relacion de agreagacion 1 a 1 o 1 a n
     private Paquete paquete; // Relacion de agregacion 1 a n
     private Cliente cliente; // Relacion de asociacion 1 a n
-    private Pago pago;
+    //private Pago pago;
 
     public Reserva(String codigoReserva, LocalDate fechaEntrada, LocalDate fechaSalida, Paquete paquete,Cliente cliente) {
         this.codigoReserva = codigoReserva;
@@ -20,7 +20,7 @@ public class Reserva {
         this.estado = EstadoReserva.PENDIENTE;
         this.paquete = paquete;
         this.cliente = cliente;
-        this.pago = new Pago();
+       // this.pago = new Pago();
     }
 
     public String getCodigoReserva() {
@@ -57,9 +57,7 @@ public class Reserva {
         return cliente;
     }
 
-    public Pago getPago() {
-        return pago;
-    }
+
     @Override
     public String toString() {
         return "Reserva " + codigoReserva + " - Cliente: " + cliente.getNombres() +

@@ -13,9 +13,9 @@ public class Cliente extends Usuario {
         super(cedula, nombres, apellidos, email, contrasena);
     }
     @Override
-    public boolean iniciarSesion(String pass, String username){
+    public boolean iniciarSesion(String username, String password) {
 
-        if(pass.equals("1") && username.equals("c")){
+        if(username.equals("1") && password.equals("c")){
             return true;
         }
             return false;
@@ -57,4 +57,5 @@ public class Cliente extends Usuario {
             System.out.println("Reserva activa: " + r.toString());
         }
     }
+
 }

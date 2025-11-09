@@ -15,7 +15,7 @@ public abstract class Usuario {
         this.contrasena = contrasena;
     }
 
-    public abstract boolean iniciarSesion(String pass, String username);
+    public abstract boolean iniciarSesion(String username, String password);
     public abstract void cerrarSesion();
     public abstract void modificarDatos();
 
@@ -23,7 +23,7 @@ public abstract class Usuario {
         return cedula;
     }
 
-    public String getNombre() {
+    public String getNombres() {
         return nombres;
     }
 
