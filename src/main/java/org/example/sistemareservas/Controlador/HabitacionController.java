@@ -96,7 +96,7 @@ public class HabitacionController implements Initializable {
         ObservableList<EstadoHabitacion> listaEstado = FXCollections.observableArrayList(EstadoHabitacion.values());
         cbEstado.setItems(listaEstado);
         cbTipoH.setItems(tipoHabitacions);
-        
+
         columId.setCellValueFactory(new PropertyValueFactory<>("numero"));
         columPiso.setCellValueFactory(new PropertyValueFactory<>("piso"));
         columCapacidad.setCellValueFactory(new PropertyValueFactory<>("capacidadPersonas"));
