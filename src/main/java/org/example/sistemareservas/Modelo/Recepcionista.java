@@ -1,5 +1,11 @@
-package org.example;
+package org.example.sistemareservas.Modelo;
 
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
+
+import java.util.ArrayList;
+import java.util.List;
+//USO O DEPENDENCIA CON CON HOTEL
 public class Recepcionista extends Usuario{
     private String codigoEmpleado;
 
@@ -8,8 +14,8 @@ public class Recepcionista extends Usuario{
     }
 
     @Override
-    public void iniciarSesion() {
-        System.out.println("Iniciando Sesion cliente-..... ");
+    public boolean iniciarSesion(String username, String password) {
+        return false;
     }
 
     @Override
@@ -21,4 +27,20 @@ public class Recepcionista extends Usuario{
     public void modificarDatos() {
         System.out.println("Modificando Sesion cliente-..... ");
     }
+
+    public void registrarHabitacion(Hotel hotel, Habitacion nueva) {
+        hotel.agregarHabitacion(nueva);
+    }
+
+    public void eliminarHabitacion(Hotel hotel, int numero) {
+        hotel.eliminarHabitacion(numero);
+    }
+
+    public void actualizarHabitacion(Hotel hotel, Habitacion modificada) {
+        hotel.modificarHabitacion(modificada);
+    }
+    public ObservableList<Habitacion> buscarHabitaciones(String criterio, String valor,Hotel hotel) {
+        return hotel.buscarHabitaciones(criterio, valor);
+    }
+
 }
