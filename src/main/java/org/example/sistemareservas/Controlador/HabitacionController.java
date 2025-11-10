@@ -17,7 +17,8 @@ import java.util.ResourceBundle;
 public class HabitacionController implements Initializable {
     @FXML
     private TableColumn<Habitacion, Integer> columCapacidad;
-
+    @FXML
+    private Button btActualizar;
     @FXML
     private TableColumn<Habitacion,EstadoHabitacion> columEstado;
 
@@ -141,7 +142,29 @@ public class HabitacionController implements Initializable {
 
     @FXML
     void eliminarHabitacion(MouseEvent event) {
-       
+        Habitacion habitacionSeleccionada = tablaListaHab.getSelectionModel().getSelectedItem();
+
+        if (habitacionSeleccionada == null) {
+            mostrarAlerta("Seleccione una habitación de la lista para eliminar.");
+            return;
+        }
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setHeaderText(null);
+        confirm.setContentText("¿Desea eliminar la habitación " + habitacionSeleccionada.getNumero() + "?");
+        var result = confirm.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Hotel hotel = HotelData.getHotel();
+            Recepcionista recepcionista = new Recepcionista("17102", "Oscar", "Hernandez", "asd@gmail.com", "admin");
+
+            boolean removed = recepcionista.eliminarHabitacion(hotel, habitacionSeleccionada);
+
+            if (removed) {
+                tablaListaHab.setItems(hotel.getHabitaciones());
+                mostrarAlerta("Habitación eliminada correctamente.");
+            } else {
+                mostrarAlerta("No se pudo eliminar la habitación.");
+            }
+        }
     }
     @FXML
     void agregarHabitacion(MouseEvent event) {
@@ -178,6 +201,7 @@ public class HabitacionController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        btActualizar.setVisible(false);
         textIdHab.setEditable(false);
         textIdHab.setStyle("-fx-control-inner-background: #f0f0f0; -fx-opacity: 1;");
 
@@ -207,7 +231,53 @@ public class HabitacionController implements Initializable {
         // 🔹 Cargar los datos desde el "HotelData"
         Hotel hotel = HotelData.getHotel();
         tablaListaHab.setItems(hotel.getHabitaciones());
-
+        tablaListaHab.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                mostrarDatosHabitacion(newSelection);
+                btActualizar.setVisible(true);
+            }
+        });
 
     }
+    @FXML
+    void actualizarDatosHabitacion(MouseEvent event) {
+       Habitacion habitacionSeleccionada =  tablaListaHab.getSelectionModel().getSelectedItem();
+        if(habitacionSeleccionada ==null){
+            mostrarAlerta("Seleccione una habitacion para actualizar");
+            return;
+        }
+        try {
+            Recepcionista recepcionista = new Recepcionista("123123","oscar","gualo","@gmail","123123");
+            Hotel hotel = HotelData.getHotel();
+            int numero= Integer.parseInt(textIdHab.getText());
+            int piso = Integer.parseInt(textPiso.getText());
+            double precio = Double.parseDouble(txtPrecio.getText());
+            int capacidad = Integer.parseInt(txtCapacidadPersonas.getText());
+            EstadoHabitacion estado = cbEstado.getValue();
+            TipoHabitacion tipo = cbTipoH.getValue();
+            recepcionista.modificarDatosHabitacion(hotel,habitacionSeleccionada,numero,piso,precio,capacidad,estado,tipo);
+            tablaListaHab.refresh();
+            mostrarAlerta("Habitación actualizada correctamente.");
+
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Verifica los valores numéricos.");
+        }
+
+    }
+    private void mostrarDatosHabitacion(Habitacion h) {
+        textIdHab.setText(String.valueOf(h.getNumero()));
+        textPiso.setText(String.valueOf(h.getPiso()));
+        txtPrecio.setText(String.valueOf(h.getPrecioPorNoche()));
+        txtCapacidadPersonas.setText(String.valueOf(h.getCapacidadPersonas()));
+        cbEstado.setValue(h.getEstado());
+        cbTipoH.setValue(h.getTipo());
+
+        // Habilitamos edición
+        textPiso.setEditable(true);
+        txtPrecio.setEditable(true);
+        txtCapacidadPersonas.setEditable(true);
+        cbEstado.setDisable(false);
+        cbTipoH.setDisable(false);
+    }
+
 }
