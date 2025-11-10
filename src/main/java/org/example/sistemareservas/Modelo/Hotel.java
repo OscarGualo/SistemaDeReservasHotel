@@ -48,4 +48,61 @@ public class Hotel {
                 ", servicios=" + servicios +
                 '}';
     }
+
+    public void agregarHabitacion(Habitacion h) {
+        habitaciones.add(h);
+    }
+
+    public void eliminarHabitacion(int numero) {
+        habitaciones.removeIf(h -> h.getNumero() == numero);
+    }
+
+    public void modificarHabitacion(Habitacion habitacionModificada) {
+        for (int i = 0; i < habitaciones.size(); i++) {
+            if (habitaciones.get(i).getNumero() == habitacionModificada.getNumero()) {
+                habitaciones.set(i, habitacionModificada);
+                break;
+            }
+        }
+    }
+
+    public ObservableList<Habitacion> buscarHabitaciones(String criterio, String valorBusqueda) {
+        if (criterio == null) throw new IllegalArgumentException("Seleccione un criterio de búsqueda.");
+        if (valorBusqueda == null || valorBusqueda.trim().isEmpty() || "SinFiltro".equalsIgnoreCase(criterio)) {
+            return getHabitaciones();
+        }
+
+        ObservableList<Habitacion> filtradas = FXCollections.observableArrayList();
+        switch (criterio) {
+            case "Numero":
+                try {
+                    int numero = Integer.parseInt(valorBusqueda.trim());
+                    for (Habitacion h : getHabitaciones()) {
+                        if (h.getNumero() == numero) filtradas.add(h);
+                    }
+                } catch (NumberFormatException e) {
+                    throw new IllegalArgumentException("Ingrese un número válido para la búsqueda por número.");
+                }
+                break;
+            case "Estado":
+                for (Habitacion h : getHabitaciones()) {
+                    if (h.getEstado() != null && h.getEstado().toString().equalsIgnoreCase(valorBusqueda.trim())) {
+                        filtradas.add(h);
+                    }
+                }
+                break;
+            case "Tipo":
+                for (Habitacion h : getHabitaciones()) {
+                    if (h.getTipo() != null && h.getTipo().toString().equalsIgnoreCase(valorBusqueda.trim())) {
+                        filtradas.add(h);
+                    }
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Criterio de búsqueda inválido.");
+        }
+
+        return filtradas;
+    }
+
 }
