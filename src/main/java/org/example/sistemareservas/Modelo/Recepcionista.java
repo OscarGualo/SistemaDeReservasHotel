@@ -32,15 +32,14 @@ public class Recepcionista extends Usuario{
         hotel.agregarHabitacion(nueva);
     }
 
-    public void eliminarHabitacion(Hotel hotel, int numero) {
-        hotel.eliminarHabitacion(numero);
-    }
 
-    public void actualizarHabitacion(Hotel hotel, Habitacion modificada) {
-        hotel.modificarHabitacion(modificada);
-    }
     public ObservableList<Habitacion> buscarHabitaciones(String criterio, String valor,Hotel hotel) {
         return hotel.buscarHabitaciones(criterio, valor);
     }
-
+    public boolean eliminarHabitacion(Hotel hotel, Habitacion habitacion) {
+        return hotel.eliminarHabitacion(habitacion);
+    }
+    public void modificarDatosHabitacion(Hotel hotel, Habitacion modificada, int nuevoNumero, int nuevoPiso ,double nuevoPrecio, int nuevaCapacidad, EstadoHabitacion estadoNuevo, TipoHabitacion tipoNuevo) {
+        hotel.modificarDatosHabitacion(modificada,nuevoNumero,nuevoPiso,nuevoPrecio,nuevaCapacidad,estadoNuevo,tipoNuevo);
+    }
 }
