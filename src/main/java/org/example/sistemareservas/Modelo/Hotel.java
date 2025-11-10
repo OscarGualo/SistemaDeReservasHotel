@@ -104,5 +104,16 @@ public class Hotel {
 
         return filtradas;
     }
+    public boolean eliminarHabitacion(Habitacion habitacion) {
+        return habitaciones.remove(habitacion);
+    }
+    public void modificarDatosHabitacion(Habitacion habitacionaModificar , int nuevoNumero, int nuevoPiso, double nuevoPrecio, int nuevaCapacidad, EstadoHabitacion estadoNuevo, TipoHabitacion tipoNuevo) {
+            habitacionaModificar.setNumero(nuevoNumero);
+            habitacionaModificar.setPiso(nuevoPiso);
+            habitacionaModificar.setPrecioPorNoche(nuevoPrecio);
+            habitacionaModificar.setEstado(estadoNuevo);
+            habitacionaModificar.setTipo(tipoNuevo);
+            habitacionaModificar.setCapacidadPersonas(nuevaCapacidad);
+    }
 
 }
