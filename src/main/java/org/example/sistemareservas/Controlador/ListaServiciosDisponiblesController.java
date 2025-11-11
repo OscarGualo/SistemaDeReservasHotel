@@ -61,6 +61,6 @@ public class ListaServiciosDisponiblesController implements Initializable {
       columPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
       columEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         Hotel hotel = HotelData.getHotel();
-        String hola = "hola";
+        
     }
 }

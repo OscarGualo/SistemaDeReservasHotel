@@ -65,9 +65,9 @@ public class Paquete implements cobrable{
         return "Paquete{" +
                 "nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
-                ", precioBase=" + precioBase +
+
                 ", serviciosIncluidos=" + serviciosIncluidos +
-                ", promocionesAplicadas=" + promocionesAplicadas +
+
                 ", habitaciones=" + habitaciones +
                 '}';
     }
