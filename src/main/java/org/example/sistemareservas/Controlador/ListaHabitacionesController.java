@@ -15,6 +15,8 @@ import org.example.sistemareservas.Modelo.*;
 
 import javax.swing.*;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ListaHabitacionesController implements Initializable {
@@ -59,7 +61,7 @@ public class ListaHabitacionesController implements Initializable {
 
         // 1) Cambiar estado en cada habitacion y en el modelo (si corresponde)
         for (Habitacion h : copia) {
-            h.setEstado("OCUPADA"); // o Enum si usas enum
+            h.setEstado(EstadoHabitacion.OCUPADA); // o Enum si usas enum
             // si tienes una estructura en Hotel que mantiene la lista, asegúrate de que
             // ese mismo objeto Habitacion sea el de la lista principal para que se actualice.
             // Si tu Hotel usa objetos distintos, tendrías que buscar por número y actualizar ahí.
@@ -78,7 +80,7 @@ public class ListaHabitacionesController implements Initializable {
 
 
 
-    }
+    
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
