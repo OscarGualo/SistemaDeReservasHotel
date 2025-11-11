@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="677.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.sistemareservas.Controlador.PaqueteController">
+<AnchorPane prefHeight="677.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PaqueteController">
    <children>
       <Label layoutX="379.0" layoutY="6.0" text="Paquete" />
       <Label layoutX="347.0" layoutY="42.0" text="Registro de paquete" />
@@ -32,14 +32,14 @@
       </Pane>
       <Pane layoutX="389.0" layoutY="71.0" prefHeight="293.0" prefWidth="384.0">
          <children>
-            <TableView layoutX="-4.0" layoutY="32.0" prefHeight="215.0" prefWidth="384.0">
+            <TableView fx:id="tableHabEleg" layoutX="-4.0" layoutY="32.0" prefHeight="215.0" prefWidth="384.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="Numero" />
-                <TableColumn prefWidth="75.0" text="Piso" />
-                  <TableColumn prefWidth="75.0" text="Precio" />
-                  <TableColumn prefWidth="75.0" text="Capacidad" />
-                  <TableColumn prefWidth="75.0" text="Estado" />
-                  <TableColumn prefWidth="75.0" text="Tipo" />
+                <TableColumn fx:id="columNumero" prefWidth="75.0" text="Numero" />
+                <TableColumn fx:id="columPiso" prefWidth="75.0" text="Piso" />
+                  <TableColumn fx:id="columPrecio" prefWidth="75.0" text="Precio" />
+                  <TableColumn fx:id="columCapacidad" prefWidth="75.0" text="Capacidad" />
+                  <TableColumn fx:id="columEstado" prefWidth="75.0" text="Estado" />
+                  <TableColumn fx:id="columTipo" prefWidth="75.0" text="Tipo" />
               </columns>
             </TableView>
             <Label layoutX="225.0" layoutY="254.0" text="Subtotal: " />
@@ -49,7 +49,7 @@
       </Pane>
       <Pane layoutX="385.0" layoutY="364.0" prefHeight="313.0" prefWidth="393.0">
          <children>
-            <TableView layoutY="34.0" prefHeight="200.0" prefWidth="393.0">
+            <TableView fx:id="tableServEleg" layoutY="34.0" prefHeight="200.0" prefWidth="393.0">
               <columns>
                 <TableColumn prefWidth="75.0" text="codigo" />
                 <TableColumn prefWidth="75.0" text="nombre" />

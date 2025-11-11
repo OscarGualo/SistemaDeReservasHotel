@@ -244,6 +244,7 @@ public class HabitacionController implements Initializable {
         txtCapacidadPersonas.setStyle("-fx-control-inner-background: #f0f0f0; -fx-opacity: 1;");
         cbTipoH.setDisable(true);
         cbEstado.setDisable(true );
+
         ObservableList<TipoHabitacion> tipoHabitacions=FXCollections.observableArrayList(TipoHabitacion.values());
         ObservableList<EstadoHabitacion> listaEstado = FXCollections.observableArrayList(EstadoHabitacion.values());
         cbEstado.setItems(listaEstado);

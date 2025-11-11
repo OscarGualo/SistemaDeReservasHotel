@@ -12,23 +12,15 @@ public class Hotel {
     public Hotel() {
         habitaciones = FXCollections.observableArrayList();
         servicios = FXCollections.observableArrayList();
-        habitaciones.add(new Habitacion(101, 1,30,5,EstadoHabitacion.DISPONIBLE,TipoHabitacion.SUIT));
-        habitaciones.add(new Habitacion(102,  2,40,6,EstadoHabitacion.DISPONIBLE,TipoHabitacion.SIMPLE));
-        habitaciones.add(new Habitacion(103, 3,50,7,EstadoHabitacion.DISPONIBLE,TipoHabitacion.DOBLE));
-
-
-        // 🔹 Servicios predefinidos
-        servicios.add(new Servicio(1,"Piscina ","Piscina x", 10,true ));
-        servicios.add(new Servicio(2,"Spa", "SPA X",5,true));
-        servicios.add(new Servicio(3,"Transporte al aeropuerto", "DRIVER", 2.5,true));
+        inicializarDatos();
     }
 
-    public  void inicializarDatos() {
+    private  void inicializarDatos() {
         // 🔹 Habitaciones predefinidas
         habitaciones.add(new Habitacion(101, 1,30.0,5,EstadoHabitacion.DISPONIBLE,TipoHabitacion.SUIT));
         habitaciones.add(new Habitacion(102,  2,40,6,EstadoHabitacion.DISPONIBLE,TipoHabitacion.SIMPLE));
         habitaciones.add(new Habitacion(103, 3,50,7,EstadoHabitacion.DISPONIBLE,TipoHabitacion.DOBLE));
-
+        habitaciones.add(new Habitacion(104, 1,30,8,EstadoHabitacion.OCUPADA,TipoHabitacion.DOBLE));
 
         // 🔹 Servicios predefinidos
         servicios.add(new Servicio(1,"Piscina ","Piscina x", 10,true ));
