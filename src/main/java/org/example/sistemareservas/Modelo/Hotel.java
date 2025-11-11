@@ -23,9 +23,9 @@ public class Hotel {
         habitaciones.add(new Habitacion(104, 1,30,8,EstadoHabitacion.OCUPADA,TipoHabitacion.DOBLE));
 
         // 🔹 Servicios predefinidos
-        servicios.add(new Servicio(1,"Piscina ","Piscina x", 10,true ));
-        servicios.add(new Servicio(2,"Spa", "SPA X",5,true));
-        servicios.add(new Servicio(3,"Transporte al aeropuerto", "DRIVER", 2.5,true));
+        servicios.add(new Servicio(1,"Piscina ","Piscina x", 10,EstadoServicio.DISPONIBLE ));
+        servicios.add(new Servicio(2,"Spa", "SPA X",5,EstadoServicio.DISPONIBLE));
+        servicios.add(new Servicio(3,"Transporte al aeropuerto", "DRIVER", 2.5,EstadoServicio.DISPONIBLE));
     }
 
     // --- Métodos de acceso ---

@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,15 +12,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import org.example.sistemareservas.Modelo.Habitacion;
-import org.example.sistemareservas.Modelo.Paquete;
+import org.example.sistemareservas.Modelo.*;
 
 import java.io.IOException;
-import java.util.Collection;
+import java.net.URL;
+import java.util.*;
 
-public class PaqueteController {
+public class PaqueteController implements Initializable {
 
     @FXML
     private Button btCancelar;
@@ -31,28 +33,28 @@ public class PaqueteController {
     private Button btbGuardar;
 
     @FXML
-    private TableColumn<?, ?> columCapacidad;
+    private TableColumn<Habitacion, Integer> columCapacidad;
 
     @FXML
-    private TableColumn<?, ?> columEstado;
+    private TableColumn<Habitacion, EstadoHabitacion> columEstado;
 
     @FXML
-    private TableColumn<?, ?> columNumero;
+    private TableColumn<Habitacion, Integer> columNumero;
 
     @FXML
-    private TableColumn<?, ?> columPiso;
+    private TableColumn<Habitacion, Integer> columPiso;
 
     @FXML
-    private TableColumn<?, ?> columPrecio;
+    private TableColumn<Habitacion, Double> columPrecio;
 
     @FXML
-    private TableColumn<?, ?> columTipo;
+    private TableColumn<Habitacion, TipoHabitacion> columTipo;
 
     @FXML
     private TableView<Habitacion> tableHabEleg;
 
     @FXML
-    private TableView<?> tableServEleg;
+    private TableView<Servicio> tableServEleg;
 
     @FXML
     private TextField txtDes;
@@ -68,28 +70,97 @@ public class PaqueteController {
 
     @FXML
     private TextField txtServicio;
+    @FXML
+    private TextField txtSubHab;
 
+    @FXML
+    private TextField txtSubServ;
+    @FXML
+    private Button btbServicios;
+    private ObservableList<Habitacion> habitacionesSeleccionadas = FXCollections.observableArrayList();
+    private ObservableList<Servicio> serviciosSeleccionados = FXCollections.observableArrayList();
     @FXML
     void elegirHabitaciones(MouseEvent event) throws IOException {
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/sistemareservas/ListaHabitacionesDisponibles.fxml"));
         Parent root = loader.load();
+
+
+        ListaHabitacionesController listaController = loader.getController();
+
+        listaController.setPaqueteController(this);
+
+
         Stage stage = new Stage();
-        stage.setTitle("Lista Habitaciones");
         stage.setScene(new Scene(root));
-        stage.show();
-    }
+        stage.setTitle("Seleccionar Habitaciones");
+        stage.showAndWait();
 
+    }
+    public void agregarHabitacionesSeleccionadas(ObservableList<Habitacion> habitaciones) {
+        for (Habitacion hab : habitaciones) {
+            if (!habitacionesSeleccionadas.contains(hab)) {
+
+                hab.cambiarEstado(EstadoHabitacion.OCUPADA);
+                habitacionesSeleccionadas.add(hab);
+
+            }
+        }
+
+        tableHabEleg.setItems(habitacionesSeleccionadas);
+        tableHabEleg.refresh();
+        double subtotal = 0;
+        for (Habitacion h : habitacionesSeleccionadas) {
+            subtotal += h.calcularCosto(); // cada habitación sabe su costo
+        }
+
+        txtSubHab.setText(String.format("%.2f", subtotal));
+    }
+    public void agregarServiciosSeleccionados(ObservableList<Servicio> servicios) {
+        for (Servicio s : servicios) {
+            if (!serviciosSeleccionados.contains(s)) {
+                serviciosSeleccionados.add(s);
+            }
+        }
+
+        tableServEleg.setItems(serviciosSeleccionados);
+        tableServEleg.refresh();
+
+        // Calcular subtotal de servicios
+        double subtotal = 0;
+        for (Servicio s : serviciosSeleccionados) {
+            subtotal += s.calcularCosto(); // cada servicio sabe su costo
+        }
+
+        txtSubServ.setText(String.format("%.2f", subtotal));
+    }
     @FXML
-    void elegirServicios(MouseEvent event) {
+    void elegirServicios(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/sistemareservas/ListaServiciosDisponibles.fxml"));
+        Parent root = loader.load();
+
+        ListaServiciosDisponiblesController listaController = loader.getController();
+        listaController.setPaqueteController(this); // Pasamos referencia para que pueda llamar agregarServiciosSeleccionados
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Seleccionar Servicios");
+        stage.showAndWait();
+    }
+
+
+    @Override
+
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        columNumero.setCellValueFactory(new PropertyValueFactory<>("numero"));
+        columPiso.setCellValueFactory(new PropertyValueFactory<>("piso"));
+        columCapacidad.setCellValueFactory(new PropertyValueFactory<>("capacidadPersonas"));
+        columPrecio.setCellValueFactory(new PropertyValueFactory<>("precioPorNoche"));
+        columEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
+        columTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
 
     }
-    private ObservableList<Habitacion> habitacionesElegidas = FXCollections.observableArrayList();
+    @FXML
+    void crearPaquete(MouseEvent event) {
 
-    public void agregarHabitaciones(Collection<Habitacion> nuevas) {
-        if (nuevas == null || nuevas.isEmpty()) return;
-
-        habitacionesElegidas.addAll(nuevas);
-        // tableHabEleg.setItems(habitacionesElegidas); // ya está seteado en initialize
     }
 }
