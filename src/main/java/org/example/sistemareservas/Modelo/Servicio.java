@@ -1,11 +1,12 @@
 package org.example.sistemareservas.Modelo;
 
-public class Servicio implements cobrable {
+public class Servicio implements  cobrable{
     private int codigo;
     private String nombre;
     private String descripcion;
     private double precio;
     private boolean estado;
+
     public Servicio(int codigo, String nombre, String descripcion, double precio, boolean estado) {
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -40,13 +41,9 @@ public class Servicio implements cobrable {
                 ", estado=" + estado +
                 '}';
     }
-    public void cambiarEstado(boolean estado) {
-        this.estado = estado;
-    }
+
     @Override
     public double calcularCosto() {
         return precio;
     }
-
-
 }

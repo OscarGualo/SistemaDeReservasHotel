@@ -33,11 +33,16 @@ public class Paquete implements cobrable{
         this.habitaciones = habitaciones;
     }
 
-    public void agregarHabitacion(Habitacion habitacion){
-        this.habitaciones.add(habitacion);
+    public void agregarHabitacion(Habitacion h) {
+        if (!habitaciones.contains(h)) {
+            habitaciones.add(h);
+        }
     }
-    public void agregarServicio(Servicio servicio){
-        this.serviciosIncluidos.add(servicio);
+
+    public void agregarServicio(Servicio s) {
+        if (!serviciosIncluidos.contains(s)) {
+            serviciosIncluidos.add(s);
+        }
     }
 
 
@@ -88,9 +93,8 @@ public class Paquete implements cobrable{
     @Override
     public double calcularCosto() {
         double total = 0;
-        for (cobrable c : elementos) {
-            total += c.calcularCosto();  // cada elemento sabe su costo
-        }
+        for (Habitacion h : habitaciones) total += h.calcularCosto();
+        for (Servicio s : serviciosIncluidos) total += s.calcularCosto();
         return total;
     }
     }

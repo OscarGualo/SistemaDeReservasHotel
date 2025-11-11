@@ -17,12 +17,26 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.example.sistemareservas.Modelo.*;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
 public class PaqueteController implements Initializable {
+    @FXML
+    private TableColumn<Servicio, Integer> columCodigo;
+    @FXML
+    private TextField txtSubServ;
 
+    @FXML
+    private TableColumn<Servicio, String> columDes;
+
+    @FXML
+    private TableColumn<Servicio, Boolean> columEstadoSer;
+    @FXML
+    private TableColumn<Servicio, Double> columPrecioSer;
+    @FXML
+    private TableColumn<Servicio, String> columNombre;
     @FXML
     private Button btCancelar;
 
@@ -74,7 +88,7 @@ public class PaqueteController implements Initializable {
     private TextField txtSubHab;
 
     @FXML
-    private TextField txtSubServ;
+    private Button btServicios;
     @FXML
     private Button btbServicios;
     private ObservableList<Habitacion> habitacionesSeleccionadas = FXCollections.observableArrayList();
@@ -114,6 +128,9 @@ public class PaqueteController implements Initializable {
         }
 
         txtSubHab.setText(String.format("%.2f", subtotal));
+        if (txtHabitaciones != null) {
+            txtHabitaciones.setText(String.valueOf(habitacionesSeleccionadas.size()));
+        }
     }
     public void agregarServiciosSeleccionados(ObservableList<Servicio> servicios) {
         for (Servicio s : servicios) {
@@ -132,19 +149,21 @@ public class PaqueteController implements Initializable {
         }
 
         txtSubServ.setText(String.format("%.2f", subtotal));
+        if (txtServicio != null) {
+            txtServicio.setText(String.valueOf(serviciosSeleccionados.size()));
+        }
     }
     @FXML
     void elegirServicios(MouseEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/sistemareservas/ListaServiciosDisponibles.fxml"));
         Parent root = loader.load();
-
         ListaServiciosDisponiblesController listaController = loader.getController();
-        listaController.setPaqueteController(this); // Pasamos referencia para que pueda llamar agregarServiciosSeleccionados
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Seleccionar Servicios");
-        stage.showAndWait();
+        listaController.setPaqueteController(this);
+        new Stage() {{
+            setScene(new Scene(root));
+            setTitle("Seleccionar Servicios");
+            showAndWait();
+        }};
     }
 
 
@@ -158,9 +177,35 @@ public class PaqueteController implements Initializable {
         columEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         columTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
 
+        columCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+        columNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        columDes.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        columPrecioSer.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        columEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
+
     }
+
     @FXML
     void crearPaquete(MouseEvent event) {
+        String nombre = txtNombre.getText();
+        String descripcion = txtDes.getText();
 
+        Paquete paquete = new Paquete(
+                nombre,
+                descripcion,
+                new ArrayList<>(habitacionesSeleccionadas),
+                new ArrayList<>(serviciosSeleccionados)
+        );
+
+        // Actualizar campos de resumen
+
+        txtPrecio.setText(String.format("%.2f", paquete.calcularCosto()));
+
+        // Aquí podrías guardar el paquete o asociarlo a una reserva después
+        mostrarMensaje("Paquete creado correctamente");
+    }
+
+    private void mostrarMensaje(String paqueteCreadoCorrectamente) {
+        JOptionPane.showMessageDialog(null, paqueteCreadoCorrectamente);
     }
 }

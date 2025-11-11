@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -31,7 +32,7 @@ public class ListaServiciosDisponiblesController implements Initializable {
     private TableColumn<Servicio,String> columDesc;
 
     @FXML
-    private TableColumn<Servicio, EstadoServicio> columEstado;
+    private TableColumn<Servicio, Boolean> columEstado;
 
     @FXML
     private TableColumn<Servicio, String> columNombre;
@@ -45,9 +46,13 @@ public class ListaServiciosDisponiblesController implements Initializable {
     @FXML
     void elegirServiciosDis(MouseEvent event) {
         ObservableList<Servicio> seleccionados = serviciosDispo.getSelectionModel().getSelectedItems();
-        paqueteController.agregarServiciosSeleccionados(seleccionados);
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        if (paqueteController != null && !seleccionados.isEmpty()) {
+            paqueteController.agregarServiciosSeleccionados(seleccionados);
+            serviciosDispo.refresh();
+        }
+
+        Stage stage = (Stage) serviciosDispo.getScene().getWindow();
         stage.close();
     }
     public void setPaqueteController(PaqueteController paqueteController) {
@@ -61,6 +66,7 @@ public class ListaServiciosDisponiblesController implements Initializable {
       columPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
       columEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         Hotel hotel = HotelData.getHotel();
-        
+        serviciosDispo.setItems(hotel.buscarServiciosDisponibles());
+       serviciosDispo.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 }

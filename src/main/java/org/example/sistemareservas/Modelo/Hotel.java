@@ -9,9 +9,11 @@ import java.util.List;
 public class Hotel {
     private static ObservableList<Habitacion> habitaciones = FXCollections.observableArrayList();
     private static ObservableList<Servicio> servicios = FXCollections.observableArrayList();
+    private static ObservableList<Paquete> paquetes = FXCollections.observableArrayList();
     public Hotel() {
         habitaciones = FXCollections.observableArrayList();
         servicios = FXCollections.observableArrayList();
+        paquetes = FXCollections.observableArrayList();
         inicializarDatos();
     }
 
@@ -31,8 +33,8 @@ public class Hotel {
     // --- Métodos de acceso ---
     public ObservableList<Habitacion> getHabitaciones() { return habitaciones; }
     public ObservableList<Servicio> getServicios() { return servicios; }
-
-
+    public ObservableList<Paquete> getPaquetes() { return paquetes; }
+    
     @Override
     public String toString() {
         return "Hotel{" +
@@ -107,5 +109,13 @@ public class Hotel {
             habitacionaModificar.setTipo(tipoNuevo);
             habitacionaModificar.setCapacidadPersonas(nuevaCapacidad);
     }
-
+    public ObservableList<Servicio> buscarServiciosDisponibles() {
+        ObservableList<Servicio> disponibles = FXCollections.observableArrayList();
+        for (Servicio s : servicios) {
+            if (s.isEstado()) { // o s.getEstado()
+                disponibles.add(s);
+            }
+        }
+        return disponibles;
+    }
 }
