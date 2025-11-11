@@ -68,8 +68,20 @@ public class HabitacionController implements Initializable {
 
     @FXML
     private TextField txtPrecio;
+    @FXML
+    private Button btGenerarReporte;
 
-
+    @FXML
+    void generarReporte(MouseEvent event) {
+        String[]encabezados = {"hola","1"};
+        Reporte.Reporte(
+                tablaListaHab.getItems(),
+                "Habitaciones",
+                "Hotel ",
+                new String[]{"Numero","Piso","Precio","Capacidad", "Estado", "Tipo"},
+                new String[]{"Numero","Piso","precioPorNoche","capacidadPersonas", "Estado", "Tipo"}
+        );
+    }
     @FXML
     void buscarHabitacion(MouseEvent event) {
         String criterio = cbFiltroBusq.getValue();
