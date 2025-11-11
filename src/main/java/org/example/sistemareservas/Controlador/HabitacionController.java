@@ -2,15 +2,21 @@ package org.example.sistemareservas.Controlador;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.example.sistemareservas.Modelo.*;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -82,6 +88,17 @@ public class HabitacionController implements Initializable {
                 new String[]{"Numero","Piso","precioPorNoche","capacidadPersonas", "Estado", "Tipo"}
         );
     }
+    @FXML
+    void salirMenuInicio(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/sistemareservas/MenuDeInicio.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        // Crear nueva escena y asignarla
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     @FXML
     void buscarHabitacion(MouseEvent event) {
         String criterio = cbFiltroBusq.getValue();
