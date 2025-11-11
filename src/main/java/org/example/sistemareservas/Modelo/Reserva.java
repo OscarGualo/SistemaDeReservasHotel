@@ -60,7 +60,7 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva " + codigoReserva + " - Cliente: " + cliente.getNombres() +
+    return "Reserva " + codigoReserva + " - Cliente: " + cliente.getNombre() +
                 " - Paquete: " + paquete.getNombre() +
                 " "+paquete.toString() +
                 " - Estado: " + estado;
