@@ -1,5 +1,7 @@
 package org.example.sistemareservas.Modelo;
 
+import org.example.sistemareservas.Modelo.Promocion;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -10,7 +10,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextArea;
+import org.example.sistemareservas.Modelo.Habitacion;
+import org.example.sistemareservas.Modelo.Hotel;
+import org.example.sistemareservas.Modelo.HotelData;
+import org.example.sistemareservas.Modelo.Servicio;
+
 public class VentanaReserva {
+    Hotel hotel;
+    @FXML
+    private TextArea areaTest;
 
     @FXML
     private Button btInicio;
@@ -21,11 +29,10 @@ public class VentanaReserva {
     @FXML
     private Button btSalir;
     @FXML
-    private TextArea txtPrueba;
-
+    private Button btDatos;
     @FXML
     void mostrarInicio(MouseEvent event) {
-        txtPrueba.setText("xqwewq");
+        areaTest.setText("xqwewq");
     }
     @FXML
     void salirSesion(MouseEvent event) {
@@ -34,5 +41,11 @@ public class VentanaReserva {
     @FXML
     void realizarReserva(MouseEvent event) {
 
+    }
+
+    @FXML
+    void mostrarDatos(MouseEvent event) {
+        hotel = HotelData.getHotel();
+        areaTest.setText(hotel.toString());
     }
 }

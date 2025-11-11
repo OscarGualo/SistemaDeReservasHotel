@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="633.0" prefWidth="732.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLER_NAME">
+   <children>
+      <ToolBar prefHeight="40.0" prefWidth="732.0">
+         <items>
+            <MenuButton mnemonicParsing="false" text="Reservas">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Registrar Reservas y Paquetes" />
+                <MenuItem mnemonicParsing="false" text="Registrar Clientes" />
+              </items>
+            </MenuButton>
+            <MenuButton layoutX="10.0" layoutY="13.0" mnemonicParsing="false" text="Archivo">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Servicios" />
+                  <MenuItem mnemonicParsing="false" text="Habitaciones" />
+               </items>
+            </MenuButton>
+         </items>
+      </ToolBar>
+   </children>
+</AnchorPane>

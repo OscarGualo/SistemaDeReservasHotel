@@ -23,7 +23,8 @@ public class HelloController {
 
     @FXML
     private Label lblTesting;
-
+    @FXML
+    private Label test;
     @FXML
     private TextField txtPass;
 
@@ -34,14 +35,14 @@ public class HelloController {
     @FXML
     void IniciarSesionTest(MouseEvent event) throws IOException {
         userImage.setVisible(true);
-        String hello;
         String  pass = txtPass.getText();
         String usuario = txtUsuario.getText();
         Usuario cliente1 = new Cliente("3123",usuario,usuario,"Playdota.az@gmail.com",pass);
-        if(cliente1.iniciarSesion("1","c")){
+
+        if(cliente1.iniciarSesion(usuario,pass)){
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/sistemareservas/VentanaEntradaReservas.fxml"));
             Parent root = loader.load();
-
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             // Crear nueva escena y asignarla
             Scene scene = new Scene(root);

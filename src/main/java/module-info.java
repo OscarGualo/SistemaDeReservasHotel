@@ -2,6 +2,9 @@ module org.example.sistemareservas {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
+    requires java.desktop;
+    requires itextpdf;
+    requires org.apache.pdfbox;
 
 
     opens org.example.sistemareservas to javafx.fxml;
