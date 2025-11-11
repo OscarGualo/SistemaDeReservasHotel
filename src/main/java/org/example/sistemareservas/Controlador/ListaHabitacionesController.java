@@ -11,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import org.example.sistemareservas.Modelo.*;
 
 import javax.swing.*;
@@ -20,8 +21,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ListaHabitacionesController implements Initializable {
-    private PaqueteController paqueteController; // referencia al otro controlador
-    private Hotel hotel = HotelData.getHotel(); // como lo obtenías antes
+
     @FXML
     private Button btElegir;
 
@@ -45,42 +45,25 @@ public class ListaHabitacionesController implements Initializable {
 
     @FXML
     private TableView<Habitacion> tablaHabDispo;
+    private PaqueteController paqueteController;
 
+    public void setPaqueteController(PaqueteController paqueteController) {
+        this.paqueteController = paqueteController;
+    }
     @FXML
     void elegirHabitaciones(MouseEvent event) {
-        ObservableList<Habitacion> seleccion = tablaHabDispo.getSelectionModel().getSelectedItems();
+        ObservableList<Habitacion> seleccionadas = tablaHabDispo.getSelectionModel().getSelectedItems();
 
-        if (seleccion == null || seleccion.isEmpty()) {
-            // mostrar alerta o mensaje si quieres
-            System.out.println("No seleccionó habitaciones.");
-            return;
+        if (paqueteController != null && !seleccionadas.isEmpty()) {
+            paqueteController.agregarHabitacionesSeleccionadas(seleccionadas);
+
+
+            tablaHabDispo.refresh();
         }
 
-        // Crear copia para evitar problemas de concurrencia con la SelectionModel / tablas
-        List<Habitacion> copia = new ArrayList<>(seleccion);
-
-        // 1) Cambiar estado en cada habitacion y en el modelo (si corresponde)
-        for (Habitacion h : copia) {
-            h.setEstado(EstadoHabitacion.OCUPADA); // o Enum si usas enum
-            // si tienes una estructura en Hotel que mantiene la lista, asegúrate de que
-            // ese mismo objeto Habitacion sea el de la lista principal para que se actualice.
-            // Si tu Hotel usa objetos distintos, tendrías que buscar por número y actualizar ahí.
-        }
-
-        // 2) Actualizar la lista que muestra tablaHabDispo: recargar filtrado
-        tablaHabDispo.setItems(hotel.buscarHabitaciones("Estado", "DISPONIBLE"));
-
-        // 3) Enviar las habitaciones elegidas al paqueteController
-        if (paqueteController != null) {
-            paqueteController.agregarHabitaciones(copia);
-        } else {
-            System.err.println("paqueteController es null — no se pudo enviar las habitaciones.");
-        }
+        Stage stage = (Stage) btElegir.getScene().getWindow();
+        stage.close();
     }
-
-
-
-    
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -94,7 +77,5 @@ public class ListaHabitacionesController implements Initializable {
         tablaHabDispo.setItems(hotel.buscarHabitaciones("Estado","DISPONIBLE"));
         tablaHabDispo.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
-    public void setPaqueteController(PaqueteController controller) {
-        this.paqueteController = controller;
-    }
+
 }

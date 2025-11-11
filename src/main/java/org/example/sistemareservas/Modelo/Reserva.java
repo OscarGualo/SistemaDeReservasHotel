@@ -1,6 +1,7 @@
 package org.example.sistemareservas.Modelo;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Reserva {
@@ -12,7 +13,7 @@ public class Reserva {
     private Paquete paquete; // Relacion de agregacion 1 a n
     private Cliente cliente; // Relacion de asociacion 1 a n
     //private Pago pago;
-
+    private List<cobrable> cobrables = new ArrayList<>();
     public Reserva(String codigoReserva, LocalDate fechaEntrada, LocalDate fechaSalida, Paquete paquete,Cliente cliente) {
         this.codigoReserva = codigoReserva;
         this.fechaEntrada = fechaEntrada;
@@ -57,6 +58,16 @@ public class Reserva {
         return cliente;
     }
 
+    public void agregarCobrable(cobrable c) {
+        cobrables.add(c);
+    }
+    public double calcularTotal() {
+        double total = 0;
+        for (cobrable c : cobrables) {
+            total += c.calcularCosto();
+        }
+        return total;
+    }
 
     @Override
     public String toString() {

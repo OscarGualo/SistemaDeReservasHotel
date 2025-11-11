@@ -1,6 +1,6 @@
 package org.example.sistemareservas.Modelo;
 
-public class Habitacion {
+public class Habitacion implements cobrable{
     private int numero;
     private int piso;
     private int capacidadPersonas;
@@ -31,7 +31,9 @@ public class Habitacion {
                 ", tipo=" + tipo +
                 '}';
     }
-
+    public void cambiarEstado(EstadoHabitacion estado){
+        this.estado = estado;
+    }
     public int getNumero() {
         return numero;
     }
@@ -78,5 +80,10 @@ public class Habitacion {
 
     public void setTipo(TipoHabitacion tipo) {
         this.tipo = tipo;
+    }
+
+    @Override
+    public double calcularCosto() {
+        return precioPorNoche;
     }
 }
