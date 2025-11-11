@@ -11,17 +11,19 @@
            style="-fx-background-radius: 25; -fx-background-color: #FED700;"
            alignment="CENTER">
 
-
+    <!-- ✅ RECTÁNGULO FIJO, CENTRADO -->
     <StackPane prefWidth="420" prefHeight="460"
                style="-fx-border-color: black; -fx-border-width: 2;">
-        
 
+        <!-- ✅ CONTENIDO CENTRADO DENTRO DEL RECTÁNGULO -->
         <VBox alignment="CENTER" spacing="22" maxWidth="360">
 
+            <!-- Avatar -->
             <ImageView fx:id="userImage" fitHeight="110" preserveRatio="true">
                 <image><Image url="@userIcon.png"/></image>
             </ImageView>
 
+            <!-- Formulario -->
             <GridPane hgap="10" vgap="12" alignment="CENTER">
                 <columnConstraints>
                     <ColumnConstraints halignment="RIGHT"/>
@@ -43,6 +45,7 @@
                            GridPane.rowIndex="1" GridPane.columnIndex="1"/>
             </GridPane>
 
+            <!-- Botón -->
             <Button fx:id="btbIniciar"
                     text="Ingresar"
                     onMouseClicked="#IniciarSesionTest"
@@ -57,4 +60,3 @@
     </StackPane>
 
 </StackPane>
-
