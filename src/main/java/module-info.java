@@ -7,6 +7,7 @@ module org.example.sistemareservas {
     requires org.apache.pdfbox;
 
 
+
     opens org.example.sistemareservas to javafx.fxml;
     exports org.example.sistemareservas;
     exports org.example.sistemareservas.Controlador;
