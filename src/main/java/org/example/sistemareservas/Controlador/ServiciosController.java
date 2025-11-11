@@ -37,7 +37,7 @@ public class ServiciosController {
     @FXML private TableColumn<Servicio, Number> colPrecio;
     @FXML private TableColumn<Servicio, String> colEstado;
 
-    // === Modelo / Datos ===
+
     private final Hotel hotel = new Hotel(); // ya trae servicios quemados en el constructor
     private final ObservableList<Servicio> fuente = hotel.getServicios(); // lista base
     private final ObservableList<Servicio> vista = FXCollections.observableArrayList(); // lo que se ve (filtrada)
