@@ -14,7 +14,7 @@
     <!-- ✅ RECTÁNGULO FIJO, CENTRADO -->
     <StackPane prefWidth="420" prefHeight="460"
                style="-fx-border-color: black; -fx-border-width: 2;">
-        
+
         <!-- ✅ CONTENIDO CENTRADO DENTRO DEL RECTÁNGULO -->
         <VBox alignment="CENTER" spacing="22" maxWidth="360">
 
