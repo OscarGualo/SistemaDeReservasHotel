@@ -5,8 +5,8 @@ public class Servicio implements cobrable {
     private String nombre;
     private String descripcion;
     private double precio;
-    private EstadoServicio estado;
-    public Servicio(int codigo, String nombre, String descripcion, double precio, EstadoServicio estado) {
+    private boolean estado;
+    public Servicio(int codigo, String nombre, String descripcion, double precio, boolean estado) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
@@ -24,7 +24,7 @@ public class Servicio implements cobrable {
                 ", estado=" + estado +
                 '}';
     }
-    public void cambiarEstado(EstadoServicio estado) {
+    public void cambiarEstado(boolean estado) {
         this.estado = estado;
     }
     @Override

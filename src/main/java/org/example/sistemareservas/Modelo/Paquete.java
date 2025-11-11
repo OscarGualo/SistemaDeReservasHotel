@@ -9,7 +9,6 @@ public class Paquete implements cobrable{
     private List<Servicio> serviciosIncluidos; //REALCION ENTRE PAQUETE Y SERVICIO 1 A N
     private List<Habitacion> habitaciones; //RELACION ENTRE PAQUETE Y HABITACION 1 A N
     private List<cobrable> elementos = new ArrayList<>();
-
     public Paquete(String nombre, String descripcion,List<Habitacion> habitaciones,List<Servicio> serviciosIncluidos){
         this.nombre = nombre;
         this.descripcion = descripcion;
