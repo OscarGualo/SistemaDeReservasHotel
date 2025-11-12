@@ -12,6 +12,10 @@ public class Recepcionista extends Usuario{
     public Recepcionista(String cedula, String nombres, String apellidos, String email, String contrasena) {
         super(cedula, nombres, apellidos, email, contrasena);
     }
+    public void asignarClienteAReserva(Reserva reserva, Cliente cliente) {
+        reserva.setCliente(cliente);
+        System.out.println("Cliente asignado a la reserva: " + cliente.getNombres());
+    }
 
     @Override
     public boolean iniciarSesion(String username, String password) {

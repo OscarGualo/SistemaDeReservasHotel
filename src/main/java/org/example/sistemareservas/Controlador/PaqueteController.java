@@ -198,11 +198,13 @@ public class PaqueteController implements Initializable {
         );
 
         // Actualizar campos de resumen
-
+        HotelData.getHotel().setPaqueteSeleccionado(paquete);
         txtPrecio.setText(String.format("%.2f", paquete.calcularCosto()));
 
         // Aquí podrías guardar el paquete o asociarlo a una reserva después
         mostrarMensaje("Paquete creado correctamente");
+        Stage stage = (Stage) btbGuardar.getScene().getWindow();
+        stage.close();
     }
 
     private void mostrarMensaje(String paqueteCreadoCorrectamente) {

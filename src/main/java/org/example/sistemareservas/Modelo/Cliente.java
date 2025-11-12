@@ -9,9 +9,13 @@ public class Cliente extends Usuario {
     private String telefono;
     private List<Reserva> reservas = new ArrayList<>(); //RELACION BIDIRECCIONAL * CON LA CLASE RESERVA
 
-    public Cliente(String cedula, String nombres, String apellidos, String email, String contrasena) {
+    public Cliente(String cedula, String nombres, String apellidos, String email,String direccion, String telefono,String contrasena) {
         super(cedula, nombres, apellidos, email, contrasena);
+        this.direccion = direccion;
+        this.telefono = telefono;
     }
+
+
     @Override
     public boolean iniciarSesion(String username, String password) {
 
@@ -29,6 +33,14 @@ public class Cliente extends Usuario {
         System.out.println("Cerrando Sesion cliente-..... ");
     }
 
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
     @Override
     public void modificarDatos() {
         System.out.println("Modificando Sesion cliente-..... ");
@@ -36,12 +48,7 @@ public class Cliente extends Usuario {
     public Habitacion seleccionarHabitaciones(Habitacion habitacion){
         return habitacion;
     }
-    public void realizarReserva(Paquete paquete, LocalDate entrada, LocalDate salida) {
-        String codigo = "R" + (reservas.size() + 1);
-        Reserva nueva = new Reserva(codigo, entrada, salida, paquete,this);
-        reservas.add(nueva);
-        System.out.println("Reserva creada: " + nueva);
-    }
+
     public void cancelarReserva(String codigoReserva) {
         for (Reserva r : reservas) {
             if (r.getCodigoReserva().equals(codigoReserva)) {

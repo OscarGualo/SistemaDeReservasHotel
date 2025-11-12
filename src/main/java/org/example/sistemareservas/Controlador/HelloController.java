@@ -37,7 +37,7 @@ public class HelloController {
         userImage.setVisible(true);
         String  pass = txtPass.getText();
         String usuario = txtUsuario.getText();
-        Usuario cliente1 = new Cliente("3123",usuario,usuario,"Playdota.az@gmail.com",pass);
+        Usuario cliente1 = new Cliente("3123","oscar","gualotuña","@gmail.com","dasd","123123","c");
 
         if(cliente1.iniciarSesion(usuario,pass)){
 

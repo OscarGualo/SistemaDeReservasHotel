@@ -3,44 +3,67 @@ package org.example.sistemareservas.Modelo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Hotel {
+
+    // --- Listas principales ---
     private static ObservableList<Habitacion> habitaciones = FXCollections.observableArrayList();
     private static ObservableList<Servicio> servicios = FXCollections.observableArrayList();
     private static ObservableList<Paquete> paquetes = FXCollections.observableArrayList();
+    private static ObservableList<Cliente> clientes = FXCollections.observableArrayList();
+    private static ObservableList<Reserva> reservas = FXCollections.observableArrayList();
+
+    // --- Selecciones actuales ---
+    private static Cliente clienteSeleccionado;
+    private static Reserva reservaSeleccionada;
+    private static Paquete paqueteSeleccionado;
+
+    // --- Constructor ---
     public Hotel() {
         habitaciones = FXCollections.observableArrayList();
         servicios = FXCollections.observableArrayList();
         paquetes = FXCollections.observableArrayList();
+        clientes = FXCollections.observableArrayList();
+        reservas = FXCollections.observableArrayList();
         inicializarDatos();
     }
 
-    private  void inicializarDatos() {
-        // 🔹 Habitaciones predefinidas
-        habitaciones.add(new Habitacion(101, 1,30.0,5,EstadoHabitacion.DISPONIBLE,TipoHabitacion.SUIT));
-        habitaciones.add(new Habitacion(102,  2,40,6,EstadoHabitacion.DISPONIBLE,TipoHabitacion.SIMPLE));
-        habitaciones.add(new Habitacion(103, 3,50,7,EstadoHabitacion.DISPONIBLE,TipoHabitacion.DOBLE));
-        habitaciones.add(new Habitacion(104, 1,30,8,EstadoHabitacion.OCUPADA,TipoHabitacion.DOBLE));
+    // --- Inicialización de datos de ejemplo ---
+    private void inicializarDatos() {
+        habitaciones.add(new Habitacion(101, 1, 30.0, 5, EstadoHabitacion.DISPONIBLE, TipoHabitacion.SUIT));
+        habitaciones.add(new Habitacion(102, 2, 40, 6, EstadoHabitacion.DISPONIBLE, TipoHabitacion.SIMPLE));
+        habitaciones.add(new Habitacion(103, 3, 50, 7, EstadoHabitacion.DISPONIBLE, TipoHabitacion.DOBLE));
+        habitaciones.add(new Habitacion(104, 1, 30, 8, EstadoHabitacion.OCUPADA, TipoHabitacion.DOBLE));
 
-        // 🔹 Servicios predefinidos
-        servicios.add(new Servicio(1,"Piscina ","Piscina x", 10,true));
-        servicios.add(new Servicio(2,"Spa", "SPA X",5,true));
-        servicios.add(new Servicio(3,"Transporte al aeropuerto", "DRIVER", 2.5,true));
+        servicios.add(new Servicio(1, "Piscina", "Piscina x", 10, true));
+        servicios.add(new Servicio(2, "Spa", "SPA X", 5, true));
+        servicios.add(new Servicio(3, "Transporte al aeropuerto", "DRIVER", 2.5, true));
+
+        clientes.add(new Cliente("3123", "oscar", "gualotuña", "@gmail.com", "dasd", "123123", "c"));
     }
-
-    // --- Métodos de acceso ---
+    public void asignarClienteAReserva(Cliente cliente, Reserva reserva) {
+        if (cliente != null && reserva != null) {
+            reserva.setCliente(cliente);
+        }
+    }
+    // --- Getters y setters principales ---
     public ObservableList<Habitacion> getHabitaciones() { return habitaciones; }
     public ObservableList<Servicio> getServicios() { return servicios; }
     public ObservableList<Paquete> getPaquetes() { return paquetes; }
-    
-    @Override
-    public String toString() {
-        return "Hotel{" +
-                "habitaciones=" + habitaciones +
-                ", servicios=" + servicios +
-                '}';
+    public ObservableList<Cliente> getClientes() { return clientes; }
+    public ObservableList<Reserva> getReservas() { return reservas; }
+
+    public Cliente getClienteSeleccionado() { return clienteSeleccionado; }
+    public void setClienteSeleccionado(Cliente cliente) { clienteSeleccionado = cliente; }
+
+    public Reserva getReservaSeleccionada() { return reservaSeleccionada; }
+    public void setReservaSeleccionada(Reserva reserva) { reservaSeleccionada = reserva; }
+
+    public Paquete getPaqueteSeleccionado() { return paqueteSeleccionado; }
+    public void setPaqueteSeleccionado(Paquete paqueteSeleccionado) { this.paqueteSeleccionado = paqueteSeleccionado; }
+
+    // --- Métodos funcionales ---
+    public void agregarReserva(Reserva reserva) {
+        reservas.add(reserva);
     }
 
     public void agregarHabitacion(Habitacion h) {
@@ -51,6 +74,10 @@ public class Hotel {
         habitaciones.removeIf(h -> h.getNumero() == numero);
     }
 
+    public boolean eliminarHabitacion(Habitacion habitacion) {
+        return habitaciones.remove(habitacion);
+    }
+
     public void modificarHabitacion(Habitacion habitacionModificada) {
         for (int i = 0; i < habitaciones.size(); i++) {
             if (habitaciones.get(i).getNumero() == habitacionModificada.getNumero()) {
@@ -58,6 +85,17 @@ public class Hotel {
                 break;
             }
         }
+    }
+
+    public void modificarDatosHabitacion(Habitacion habitacionaModificar, int nuevoNumero, int nuevoPiso,
+                                         double nuevoPrecio, int nuevaCapacidad,
+                                         EstadoHabitacion estadoNuevo, TipoHabitacion tipoNuevo) {
+        habitacionaModificar.setNumero(nuevoNumero);
+        habitacionaModificar.setPiso(nuevoPiso);
+        habitacionaModificar.setPrecioPorNoche(nuevoPrecio);
+        habitacionaModificar.setEstado(estadoNuevo);
+        habitacionaModificar.setTipo(tipoNuevo);
+        habitacionaModificar.setCapacidadPersonas(nuevaCapacidad);
     }
 
     public ObservableList<Habitacion> buscarHabitaciones(String criterio, String valorBusqueda) {
@@ -98,24 +136,34 @@ public class Hotel {
 
         return filtradas;
     }
-    public boolean eliminarHabitacion(Habitacion habitacion) {
-        return habitaciones.remove(habitacion);
-    }
-    public void modificarDatosHabitacion(Habitacion habitacionaModificar , int nuevoNumero, int nuevoPiso, double nuevoPrecio, int nuevaCapacidad, EstadoHabitacion estadoNuevo, TipoHabitacion tipoNuevo) {
-            habitacionaModificar.setNumero(nuevoNumero);
-            habitacionaModificar.setPiso(nuevoPiso);
-            habitacionaModificar.setPrecioPorNoche(nuevoPrecio);
-            habitacionaModificar.setEstado(estadoNuevo);
-            habitacionaModificar.setTipo(tipoNuevo);
-            habitacionaModificar.setCapacidadPersonas(nuevaCapacidad);
-    }
+
     public ObservableList<Servicio> buscarServiciosDisponibles() {
         ObservableList<Servicio> disponibles = FXCollections.observableArrayList();
         for (Servicio s : servicios) {
-            if (s.isEstado()) { // o s.getEstado()
+            if (s.isEstado()) {
                 disponibles.add(s);
             }
         }
         return disponibles;
+    }
+
+    // --- Asociación entre reserva y paquete ---
+    public void asociarPaqueteAReserva(Paquete paquete) {
+        if (reservaSeleccionada != null && paquete != null) {
+            reservaSeleccionada.setPaquete(paquete);
+            setPaqueteSeleccionado(paquete);
+            if (!paquetes.contains(paquete)) {
+                paquetes.add(paquete);
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "habitaciones=" + habitaciones +
+                ", servicios=" + servicios +
+                ", paquetes=" + paquetes +
+                '}';
     }
 }
